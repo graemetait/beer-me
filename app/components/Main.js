@@ -22,11 +22,20 @@ const Main = React.createClass({
   },
   loadBeers(searchTerm = 'hops') {
     console.log('Searching for ' + searchTerm);
+
+    const localStorageBeers = localStorage.getItem(`search-${searchTerm}`);
+    if (localStorageBeers) {
+      this.setState({ beers: JSON.parse(localStorageBeers) });
+      return;
+    }
+
     fetch(`http://api.react.beer/v2/search?q=${searchTerm}&type=beer`)
       .then(data => data.json())
       .then((beers) => {
         const filteredBeers = beers.data.filter(beer => !!beer.labels);
         this.setState({ beers: filteredBeers });
+        // Save beers to localstorage
+        localStorage.setItem(`search-${searchTerm}`, JSON.stringify(this.state.beers));
       })
   },
   render() {

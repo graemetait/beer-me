@@ -26,15 +26,24 @@ const Single = React.createClass({
     if (this.state.loading) {
       return <Loader message="Pouring a cold one!" />
     }
+    const { beer } = this.state;
 
     return (
       <div className="single-beer">
-        <h3>{this.state.beer.name}</h3>
-        <p>{this.state.beer.description}</p>
-        <img src={this.state.beer.labels.large} />
-        {this.renderGlass(this.state.beer)}
-        <p>ABV: {this.state.beer.abv}%</p>
-        <p>{this.state.beer.style.description}</p>
+
+        <div className="desc">
+          <h3>{beer.name}</h3>
+          <p>{beer.description}</p>
+        </div>
+
+        <img className="label" src={beer.labels.large} />
+
+        <div className="deets">
+          {this.renderGlass(beer)}
+
+          <p>ABV: {beer.abv}%</p>
+          <p>{beer.style.description}</p>
+        </div>
       </div>
     )
   },

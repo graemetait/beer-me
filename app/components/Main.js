@@ -13,6 +13,9 @@ const Main = React.createClass({
   componentWillMount() {
     this.loadBeers();
   },
+  componentWillReceiveProps(nextProps) {
+    this.loadBeers(nextProps.params.searchTerm);
+  },
   incrementBeers() {
     const beerAmount = this.state.numBeers + 1;
     this.setState({ numBeers: beerAmount });

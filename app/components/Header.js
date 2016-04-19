@@ -5,9 +5,12 @@ const Header = React.createClass({
   render() {
     return (
       <h1>
-        <Link to="/">Beer Me!</Link>
+        <Link to="/">{this.props.siteName}</Link>
       </h1>
     );
+  },
+  propTypes: {
+    siteName: React.PropTypes.string.isRequired
   }
 });
 

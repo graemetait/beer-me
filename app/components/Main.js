@@ -5,7 +5,7 @@ const Main = React.createClass({
   render() {
     return (
       <div className="wrapper">
-        <Header />
+        <Header siteName="Beer Me! 🍻" />
       </div>
     )
   }

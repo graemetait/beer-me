@@ -9,12 +9,25 @@ import Single from './Single';
 const Main = React.createClass({
   getInitialState() {
     return {
-      numBeers: 10
+      numBeers: 10,
+      beers: []
     }
+  },
+  componentWillMount() {
+    this.loadBeers();
   },
   incrementBeers() {
     const beerAmount = this.state.numBeers + 1;
     this.setState({ numBeers: beerAmount });
+  },
+  loadBeers(searchTerm = 'hops') {
+    console.log('Searching for ' + searchTerm);
+    fetch(`http://api.react.beer/v2/search?q=${searchTerm}&type=beer`)
+      .then(data => data.json())
+      .then((beers) => {
+        const filteredBeers = beers.data.filter(beer => !!beer.labels);
+        this.setState({ beers: filteredBeers });
+      })
   },
   render() {
     return (

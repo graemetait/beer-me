@@ -11,11 +11,7 @@ const Main = React.createClass({
     return (
       <div className="wrapper">
         <Header siteName="Beer Me! 🍻" />
-        <Loader message="Loading..." />
-        <Beer />
-        <Results />
-        <Search />
-        <Single />
+        {React.cloneElement(this.props.children, {loadBeers:this.loadBeers, ...this.state })}
       </div>
     )
   }

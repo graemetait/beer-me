@@ -4,7 +4,7 @@ import Loader from './Loader';
 const Single = React.createClass({
   getInitialState() {
     return {
-      beer: { name: '' },
+      beer: {},
       loading: true
     }
   },
@@ -29,8 +29,22 @@ const Single = React.createClass({
 
     return (
       <div className="single-beer">
-        <h2>{this.state.beer.name}</h2>
+        <h3>{this.state.beer.name}</h3>
+        <p>{this.state.beer.description}</p>
+        <img src={this.state.beer.labels.large} />
+        {this.renderGlass(this.state.beer)}
+        <p>ABV: {this.state.beer.abv}%</p>
         <p>{this.state.beer.style.description}</p>
+      </div>
+    )
+  },
+  renderGlass(beer) {
+    if (!beer.glass) return;
+
+    return (
+      <div className="glass">
+        <img src={`/images/glass-${beer.glass.id}.jpg`} />
+        <h3>{beer.glass.name} Glass</h3>
       </div>
     )
   }

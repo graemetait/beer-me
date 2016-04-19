@@ -1,10 +1,6 @@
 import React from 'react';
 import Header from './Header';
-import Loader from './Loader';
-import Beer from './Beer';
-import Results from './Results';
 import Search from './Search';
-import Single from './Single';
 
 const Main = React.createClass({
   getInitialState() {
@@ -50,6 +46,7 @@ const Main = React.createClass({
     return (
       <div className="wrapper">
         <Header siteName="Beer Me! 🍻" />
+        <Search />
         <button onClick={this.incrementBeers}>{this.state.numBeers} 🍻</button>
         {React.cloneElement(this.props.children, {loadBeers:this.loadBeers, ...this.state })}
       </div>

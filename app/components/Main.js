@@ -10,7 +10,8 @@ const Main = React.createClass({
   getInitialState() {
     return {
       numBeers: 10,
-      beers: []
+      beers: [],
+      loading: true
     }
   },
   componentWillMount() {
@@ -23,11 +24,16 @@ const Main = React.createClass({
   loadBeers(searchTerm = 'hops') {
     console.log('Searching for ' + searchTerm);
 
+    this.setState({ loading: true });
+
     const cacheKey = `search-${searchTerm}`;
     const localStorageBeers = localStorage.getItem(cacheKey);
 
     if (localStorageBeers) {
-      this.setState({ beers: JSON.parse(localStorageBeers) });
+      this.setState({
+        beers: JSON.parse(localStorageBeers),
+        loading: false
+      });
       return;
     }
 
@@ -35,7 +41,7 @@ const Main = React.createClass({
       .then(data => data.json())
       .then((beers) => {
         const filteredBeers = beers.data.filter(beer => !!beer.labels);
-        this.setState({ beers: filteredBeers });
+        this.setState({ beers: filteredBeers, loading: false });
         // Save beers to localstorage
         localStorage.setItem(cacheKey, JSON.stringify(this.state.beers));
       });
